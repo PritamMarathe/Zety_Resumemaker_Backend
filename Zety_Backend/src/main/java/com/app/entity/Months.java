@@ -1,0 +1,6 @@
+package com.app.entity;
+
+public enum Months {
+	JANUARY,FEBRURAY,MARCH,APRIL,MAY,JUNE,JULY,AUGUST,SEPTEMBER,OCTOBER,NOVEMBER,DECEMBER
+
+}

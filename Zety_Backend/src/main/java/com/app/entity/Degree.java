@@ -1,0 +1,46 @@
+package com.app.entity;
+
+public enum Degree {
+	BACHELOR_OF_COMPUTER_APPLICATION("BCA"),
+    BACHELOR_OF_BUSINESS_ADMINISTRATION("BBA"),
+    BACHELOR_OF_COMMERCE("BCom"),
+    BACHELOR_OF_SCIENCE("BSc"),
+    BACHELOR_OF_ARTS("BA"),
+    BACHELOR_OF_ENGINEERING("BE"),
+    BACHELOR_OF_TECHNOLOGY("BTech"),
+    BACHELOR_OF_EDUCATION("BEd"),
+    BACHELOR_OF_FINE_ARTS("BFA"),
+    BACHELOR_OF_LAW("LLB"),
+    BACHELOR_OF_MEDICINE("MBBS"),
+
+    // Master's Degrees
+    MASTER_OF_COMPUTER_APPLICATION("MCA"),
+    MASTER_OF_BUSINESS_ADMINISTRATION("MBA"),
+    MASTER_OF_COMMERCE("MCom"),
+    MASTER_OF_SCIENCE("MSc"),
+    MASTER_OF_ARTS("MA"),
+    MASTER_OF_ENGINEERING("ME"),
+    MASTER_OF_TECHNOLOGY("MTech"),
+    MASTER_OF_EDUCATION("MEd"),
+    MASTER_OF_FINE_ARTS("MFA"),
+    MASTER_OF_LAW("LLM"),
+    MASTER_OF_PUBLIC_HEALTH("MPH"),
+    MASTER_OF_SOCIAL_WORK("MSW"),
+
+    // Doctorate Degrees
+    DOCTOR_OF_PHILOSOPHY("PhD"),
+    DOCTOR_OF_MEDICINE("MD"),
+    DOCTOR_OF_BUSINESS_ADMINISTRATION("DBA"),
+    DOCTOR_OF_EDUCATION("EdD"),
+    DOCTOR_OF_PUBLIC_HEALTH("DrPH");
+
+    private final String shortName;
+
+    Degree(String shortName) {
+        this.shortName = shortName;
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+}
