@@ -1,6 +1,8 @@
 package com.app.dto;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,9 +10,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BesicDetailsDto {
-
-	  private String first_name;  
+	    private String first_name;  
 	    private String last_name;  
 	    private String email;
 	    private String phone;
@@ -20,6 +22,8 @@ public class BesicDetailsDto {
 	    private String linkdin;    
 	    private String github;
 	    private String message;
+	    private byte [] profileImage;
+	    
 	   
 		public BesicDetailsDto() {}
 		
@@ -84,6 +88,14 @@ public class BesicDetailsDto {
 
 		public void setMessage(String message) {
 			this.message = message;
+		}
+
+		public byte[] getProfileImage() {
+			return profileImage;
+		}
+
+		public void setProfileImage(byte[] profileImage) {
+			this.profileImage = profileImage;
 		}
 
 	

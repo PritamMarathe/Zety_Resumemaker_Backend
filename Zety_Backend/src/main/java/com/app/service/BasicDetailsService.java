@@ -15,4 +15,7 @@ public interface BasicDetailsService {
 	ApiResponse deleteBesicdetails(Long userId);
 	
 	CombinedResponseDto getCombinedData(Long id);
+	
+    byte[] getProfileImageById(Long id);
+
 }

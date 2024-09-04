@@ -118,4 +118,12 @@ public class BasicDetailsServiceImpl implements BasicDetailsService {
 	}
 	
 	
+	@Override
+	public byte[] getProfileImageById(Long id) {
+		 BasicDetails basicDetails = dao.findById(id)
+                 .orElseThrow(() -> new RersourseNotFoundException("User cannot be found"));
+		 return basicDetails.getProfileImage();
+}
+	
+	
 }

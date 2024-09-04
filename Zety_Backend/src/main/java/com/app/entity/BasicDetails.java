@@ -1,6 +1,6 @@
 package com.app.entity;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -8,6 +8,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -67,7 +68,11 @@ public class BasicDetails extends BaseEntity {
 	@Column(name = "message", length = 65534, columnDefinition = "TEXT")
 	@Size(max = 65534, message = "Message cannot exceed 65,534 characters")
 	private String message;
-
+	
+	@Lob        //lob(larger object) refers to length datatype for storing larger objects 
+	@Column(name="profile_image")
+	private byte[] ProfileImage;     //image are stored as binary data in byte[]
+	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "detailsEducation", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Education> education = new ArrayList<>();
 
@@ -248,12 +253,23 @@ public class BasicDetails extends BaseEntity {
 		this.user = user;
 	}
 
+	public byte[] getProfileImage() {
+		return ProfileImage;
+	}
+
+	public void setProfileImage(byte[] profileImage) {
+		ProfileImage = profileImage;
+	}
+
 	@Override
 	public String toString() {
-		return "BesicDetails [first_name=" + firstName + ", last_name=" + lastName + ", phone=" + phone
-				+ ", Profession=" + profession + ", city=" + city + ", country=" + country + ", linkdin=" + linkdin
-				+ ", github=" + github + ", message=" + message + ", education=" + education + ", experiance="
-				+ experiance + ", skills=" + skills + ", projects=" + projects + "]";
+		return "BasicDetails [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phone="
+				+ phone + ", profession=" + profession + ", city=" + city + ", country=" + country + ", linkdin="
+				+ linkdin + ", github=" + github + ", message=" + message + ", ProfileImage="
+				+ Arrays.toString(ProfileImage) + ", education=" + education + ", experiance=" + experiance
+				+ ", skills=" + skills + ", projects=" + projects + ", user=" + user + "]";
 	}
+
+	
 
 }
