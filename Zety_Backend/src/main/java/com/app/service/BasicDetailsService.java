@@ -1,5 +1,9 @@
 package com.app.service;
 
+import java.io.IOException;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.app.dto.ApiResponse;
 import com.app.dto.BesicDetailsDto;
 import com.app.dto.CombinedResponseDto;
@@ -17,5 +21,9 @@ public interface BasicDetailsService {
 	CombinedResponseDto getCombinedData(Long id);
 	
     byte[] getProfileImageById(Long id);
-
+    
+    public void saveImageToLocalFolder(MultipartFile imageFile) throws IOException;
+    
+    public ApiResponse updateProfileimage(Long userId,MultipartFile profileImage) throws IOException;
+        
 }

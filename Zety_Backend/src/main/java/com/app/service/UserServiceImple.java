@@ -19,7 +19,6 @@ import com.app.entity.User;
 @Service
 @Transactional
 public class UserServiceImple implements UserService {
-
 	@Autowired
 	private UserDao userDao;
 

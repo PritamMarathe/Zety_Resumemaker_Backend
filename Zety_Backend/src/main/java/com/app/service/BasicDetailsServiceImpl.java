@@ -1,13 +1,14 @@
 package com.app.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.web.multipart.MultipartFile;
 import com.app.custum_exception.RersourseNotFoundException;
 import com.app.dao.BesicDetailsDao;
 import com.app.dao.UserDao;
@@ -23,6 +24,10 @@ import com.app.dto.ResponseSkillsDto;
 import com.app.dto.SkillDto;
 import com.app.entity.BasicDetails;
 import com.app.entity.User;
+import java.nio.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Service
 @Transactional
@@ -124,6 +129,36 @@ public class BasicDetailsServiceImpl implements BasicDetailsService {
                  .orElseThrow(() -> new RersourseNotFoundException("User cannot be found"));
 		 return basicDetails.getProfileImage();
 }
+
+	@Override
+	public void saveImageToLocalFolder(MultipartFile imageFile)  throws IOException{
+		String folderPath="src/main/resources/statics/images/";
+		
+		File directory=new File(folderPath);
+		if(!directory.exists())
+			directory.mkdir();
+		
+		String imageFileName="_"+System.currentTimeMillis()+".jgp";
 	
-	
+			Path imagePath = Paths.get(folderPath + imageFileName);
+			
+			Files.write(imagePath,imageFile.getBytes());
+		}
+
+	@Override
+	public ApiResponse updateProfileimage(Long userId, MultipartFile profileImage) throws IOException {
+		
+		BasicDetails existingDetails=dao.findById(userId)
+				.orElseThrow(()-> new RersourseNotFoundException("user cannot be found"));
+		if(profileImage!=null && !profileImage.isEmpty()) {
+			byte[]imagebytes=profileImage.getBytes();
+			existingDetails.setProfileImage(imagebytes);
+			saveImageToLocalFolder(profileImage);
+			dao.save(existingDetails);
+			return new  ApiResponse("profile image updated successfully");
+		}
+		
+		return new ApiResponse("No image provided");
+		
+	}
 }

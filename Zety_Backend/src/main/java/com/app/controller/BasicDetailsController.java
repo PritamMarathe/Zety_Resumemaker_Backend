@@ -1,12 +1,12 @@
 package com.app.controller;
 
 import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.event.PublicInvocationEvent;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,8 +43,10 @@ public class BasicDetailsController {
     	return ResponseEntity.status(HttpStatus.CREATED).body(service.addBasicDetails(details));
     }*/
     
+    
     //multipart/form-data media type is required to send files along with other form data.
-    @PostMapping(value="addBasicdetails" , consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    
+    @PostMapping(value="addBasicdetails" , consumes = MediaType.MULTIPART_FORM_DATA_VALUE)    //allows the endpoint to accept form data, including file uploads.
     public ApiResponse addBasicDetails(
             @RequestPart("details") String detailsJson,
             @RequestPart(value = "profileImage", required = false) MultipartFile profileImage) {//The MultipartFile class is used in Spring Boot to handle file uploads.
@@ -62,6 +64,8 @@ public class BasicDetailsController {
             try {
                 byte[] imageBytes = profileImage.getBytes();  //if image is uploaded its byte are read and set into besicdetailsdto
                 details.setProfileImage(imageBytes);
+                
+                service.saveImageToLocalFolder(profileImage);  
             } catch (IOException e) {
                 e.printStackTrace();
                 return new ApiResponse("Image upload failed");
@@ -76,6 +80,7 @@ public class BasicDetailsController {
     	
     	return ResponseEntity.ok(service.getBasicDetailsById(userId));
     }*/
+    
     
     @GetMapping("/profile-image/{id}")
     public ResponseEntity<byte[]> getProfileImage(@PathVariable Long id) {
@@ -109,6 +114,19 @@ public class BasicDetailsController {
     	}
     	
     	return ResponseEntity.ok(responseDto);
+    }
+    
+    @PutMapping(value="/updateProfileImage/{userId}" , consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?>updateProfileImage(@PathVariable Long userId, 
+    		@RequestPart("profileImage") MultipartFile profileImage ){
+    	try {
+    		ApiResponse response=service.updateProfileimage(userId, profileImage);
+    		return ResponseEntity.ok(response);
+    	}catch (IOException e) {
+			e.printStackTrace();
+		}
+    	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+    			.body(new ApiResponse("failed to update profile image"));
     }
 }
 

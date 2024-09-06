@@ -2,7 +2,6 @@ package com.app.entity;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -269,7 +268,4 @@ public class BasicDetails extends BaseEntity {
 				+ Arrays.toString(ProfileImage) + ", education=" + education + ", experiance=" + experiance
 				+ ", skills=" + skills + ", projects=" + projects + ", user=" + user + "]";
 	}
-
-	
-
 }
