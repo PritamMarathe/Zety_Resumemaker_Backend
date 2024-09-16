@@ -1,6 +1,7 @@
 package com.app.service;
 
 import com.app.dao.UserDao;
+import com.app.entity.Role;
 import com.app.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -41,8 +42,16 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
             user.setPassword("password"); // Not required for OAuth2 login
             user.setProvider(provider);
             user.setProviderId(providerId);
+            
+            if (email.endsWith("@zohomail.in")) {
+                user.setRole(Role.ADMIN);
+            } else {
+                user.setRole(Role.USER); // Default role for OAuth users
+            }
+
             userDao.save(user);
         }
+        
 
         return new DefaultOAuth2User(
                 Collections.singletonList(new SimpleGrantedAuthority("USER")),oAuth2User.getAttributes(),"email" );

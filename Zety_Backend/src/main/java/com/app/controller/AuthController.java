@@ -2,21 +2,19 @@ package com.app.controller;
 
 import java.io.IOException;
 import java.util.Map;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 public class AuthController {
 	
-	 @GetMapping("/auth/login/facebook")
-	    public String facebookLogin() {
-	        // Redirect to the Facebook login URL
-	        return "redirect:/oauth2/authorization/facebook";
-	    }
-	 
 	 //google login redirect url
 	 @GetMapping("/auth/login/google")
 	  public void googleLogin(HttpServletResponse response) throws IOException {

@@ -1,8 +1,12 @@
 package com.app.entity;
 
+import java.time.LocalTime;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
@@ -29,6 +33,13 @@ public class User extends BaseEntity {
 
 	@Column(name = "provider_id")
 	private String providerId; // google unique user ID
+	
+	@Enumerated(EnumType.STRING)
+	private Role role;
+	
+	private LocalTime logintime;
+	private LocalTime logouttime;
+
 
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private BasicDetails basicDetails;
@@ -72,4 +83,30 @@ public class User extends BaseEntity {
 	public void setBesicDetails(BasicDetails basicDetails) {
 		this.basicDetails = basicDetails;
 	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public LocalTime getLogintime() {
+		return logintime;
+	}
+
+	public void setLogintime(LocalTime logintime) {
+		this.logintime = logintime;
+	}
+
+	public LocalTime getLogouttime() {
+		return logouttime;
+	}
+
+	public void setLogouttime(LocalTime logouttime) {
+		this.logouttime = logouttime;
+	}
+	
+	
 }

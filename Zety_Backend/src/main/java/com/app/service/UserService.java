@@ -17,6 +17,11 @@ public interface UserService {
 	
 	ApiResponse authenticateUser(LoginDTO loginDTO);
 
+	User findByEmail(String email);
+
+	void save(User user);
+	void updateLogoutTime(String email);
+
 	
 	
 }

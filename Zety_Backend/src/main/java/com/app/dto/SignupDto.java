@@ -1,10 +1,15 @@
 package com.app.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class SignupDto {
 	
 	private String email;
 	private String password;
 	private String confirmpassword;
+	@JsonIgnore
+	private String role;
+	
 	
 	public SignupDto() {}
 	
@@ -26,4 +31,14 @@ public class SignupDto {
 	public void setConfirmpassword(String confirmpassword) {
 		this.confirmpassword = confirmpassword;
 	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
+	
 }
