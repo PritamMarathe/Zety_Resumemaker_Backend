@@ -33,16 +33,15 @@ public class User extends BaseEntity {
 
 	@Column(name = "provider_id")
 	private String providerId; // google unique user ID
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private BasicDetails basicDetails;
 	
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
 	private LocalTime logintime;
 	private LocalTime logouttime;
-
-
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-	private BasicDetails basicDetails;
 
 	public String getEmail() {
 		return email;

@@ -27,12 +27,22 @@ public class UserController {
 	
 	@PostMapping("/signUp")
 	public ResponseEntity<ApiResponse>registerUser(@RequestBody SignupDto signupDto){
-		ApiResponse response=service.userRegister(signupDto);
-		if (response.isSuccess()) {
-            return ResponseEntity.ok(response);
-        } else {
-            return ResponseEntity.badRequest().body(response);
-        }
+		 // Automatically assign role based on email domain
+	    if (signupDto.getEmail().endsWith("@zohomail.in")) {
+	        signupDto.setRole("ADMIN");  // Assign admin role for @numetry.com emails
+	    } else {
+	        signupDto.setRole("USER");   // Assign user role for other emails
+	    }
+
+	    // Call the service to register the user
+	    ApiResponse response = service.userRegister(signupDto);
+
+	    // Return appropriate response
+	    if (response.isSuccess()) {
+	        return ResponseEntity.ok(response);
+	    } else {
+	        return ResponseEntity.badRequest().body(response);
+	    }
 	}
 	
 	@PostMapping("/resetPassword")

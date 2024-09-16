@@ -44,7 +44,8 @@ public class SecurityConfig {
                 authorizeRequests
                     .requestMatchers("/", "/login**", "/oauth2/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()  // Allow public access
                     .requestMatchers("/auth/login/**").permitAll()  // Specific URL for OAuth2 login
-                    .requestMatchers("/user/**").permitAll()  // Permit all URLs under /user/
+                   // .requestMatchers("/user/**").hasAnyRole("ADMIN", "USER")  // Allow both ADMIN and USER roles
+                    //.requestMatchers("/admin/**").hasRole("ADMIN")  // Only admin can access admin routes
                     .anyRequest().authenticated() // Other paths require authentication
                         .and()
             )
@@ -81,7 +82,7 @@ public class SecurityConfig {
 //    public CorsFilter corsFilter() {
 //        return new CorsFilter(corsConfigurationSource());
 //    }
-
+    
 
 
 }

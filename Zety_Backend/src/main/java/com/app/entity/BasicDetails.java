@@ -69,7 +69,7 @@ public class BasicDetails extends BaseEntity {
 	private String message;
 	
 	@Lob        //lob(larger object) refers to length datatype for storing larger objects 
-	@Column(name="profile_image")
+	@Column(name="profile_image",columnDefinition ="LONGBLOB")
 	private byte[] ProfileImage;     //image are stored as binary data in byte[]
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "detailsEducation", cascade = CascadeType.ALL, orphanRemoval = true)

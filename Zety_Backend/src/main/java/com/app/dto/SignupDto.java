@@ -1,5 +1,6 @@
 package com.app.dto;
 
+import com.app.entity.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class SignupDto {
@@ -9,7 +10,6 @@ public class SignupDto {
 	private String confirmpassword;
 	@JsonIgnore
 	private String role;
-	
 	
 	public SignupDto() {}
 	
