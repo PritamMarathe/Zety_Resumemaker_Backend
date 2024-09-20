@@ -66,7 +66,7 @@ public class EducationServiceImpl implements EducationSerivce {
         List<EducationDto> educationList = basicDetails.getEducation().stream()
                 .map(education -> {
                     EducationDto dto = mapper.map(education, EducationDto.class);
-                   // dto.setUserId(basicDetails.getId()); // Set userId from BesicDetails
+                    dto.setUserId(basicDetails.getId()); // Set userId from BesicDetails
                     return dto;
                 })
                 .collect(Collectors.toList());

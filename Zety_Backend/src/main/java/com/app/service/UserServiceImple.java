@@ -104,4 +104,11 @@ public class UserServiceImple implements UserService {
 	        }
 		
 	}
+
+	@Override
+	public Long findUserIdByEmail(String email) {
+		return userDao.findByEmail(email)
+				.map(User::getId)
+				.orElseThrow(()->new RersourseNotFoundException("user not found with email:"+email));
+	}
 }

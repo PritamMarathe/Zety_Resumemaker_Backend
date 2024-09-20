@@ -5,7 +5,8 @@ import com.app.entity.Degree;
 import com.app.entity.Months;
 
 public class EducationDto {
-
+	
+	private int id;
 	private String SchoolName;
 	private String SchoolLocation;
 	private String FieldOfStudy;
@@ -104,6 +105,19 @@ public class EducationDto {
 		this.certification = certification;
 	}
 
+
+
+	public int getId() {
+		return id;
+	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
 	
 	
 }

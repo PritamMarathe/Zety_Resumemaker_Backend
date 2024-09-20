@@ -21,6 +21,8 @@ public interface UserService {
 
 	void save(User user);
 	void updateLogoutTime(String email);
+	
+	Long findUserIdByEmail(String email);
 
 	
 	

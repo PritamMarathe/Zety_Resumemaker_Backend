@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CombinedResponseDto {
 	
-	private BesicDetailsDto besicDetails;
+	private ResponseBesicDetailsDto besicDetails;
 	
 	private List<ResponseEducationDto> educationList;
 	
@@ -17,11 +17,11 @@ public class CombinedResponseDto {
 	
 	private List<ResponseProjectDto> projectList;
 
-	public BesicDetailsDto getBesicDetails() {
+	public ResponseBesicDetailsDto getBesicDetails() {
 		return besicDetails;
 	}
 
-	public void setBesicDetails(BesicDetailsDto besicDetails) {
+	public void setBesicDetails(ResponseBesicDetailsDto besicDetails) {
 		this.besicDetails = besicDetails;
 	}
 

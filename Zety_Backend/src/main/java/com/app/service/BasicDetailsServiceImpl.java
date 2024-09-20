@@ -17,6 +17,7 @@ import com.app.dto.BesicDetailsDto;
 import com.app.dto.CombinedResponseDto;
 import com.app.dto.EducationDto;
 import com.app.dto.ExperianceDto;
+import com.app.dto.ResponseBesicDetailsDto;
 import com.app.dto.ResponseEducationDto;
 import com.app.dto.ResponseExperianceDto;
 import com.app.dto.ResponseProjectDto;
@@ -107,7 +108,7 @@ public class BasicDetailsServiceImpl implements BasicDetailsService {
 				.stream().map(p->mapper.map(p, ResponseProjectDto.class)).
 										collect(Collectors.toList());
 		
-		BesicDetailsDto besicDetailsDto = mapper.map(basicDetails, BesicDetailsDto.class);
+		ResponseBesicDetailsDto besicDetailsDto = mapper.map(basicDetails, ResponseBesicDetailsDto.class);
 		
 		
 		responseDto.setBesicDetails(besicDetailsDto);
