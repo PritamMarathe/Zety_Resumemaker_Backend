@@ -17,7 +17,7 @@ import com.app.service.UserService;
 
 @CrossOrigin
 @RestController
-@RequestMapping("user")
+@RequestMapping("auth")
 public class LoginController {
 
 	@Autowired
@@ -25,6 +25,8 @@ public class LoginController {
 	
 	  @PostMapping("/login")
 	    public ResponseEntity<ApiResponse> loginUser(@RequestBody LoginDTO loginDTO) {
+		  System.out.println("Received email: " + loginDTO.getEmail());
+		  System.out.println("Received password: " + loginDTO.getPassword());
 	        ApiResponse response = service.authenticateUser(loginDTO);
 	        if(response.isSuccess()) {
 	        	
@@ -36,10 +38,12 @@ public class LoginController {
 	            } else if (user.getRole() == Role.USER) {
 	                response.setMessage("User login successful");
 	            }
+				response.setEmail(user.getEmail());
+
 	            
 	        	return ResponseEntity.ok(response);
 	        } else
-	        return  ResponseEntity.badRequest().body(response);
+				return  ResponseEntity.badRequest().body(response);
 	    }
 	  
 	  @PostMapping("/logout")

@@ -18,7 +18,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "besic_details")
+@Table(name = "basic_details")
 public class BasicDetails extends BaseEntity {
 
 	@Column(name = "first_name", length = 100)
@@ -56,9 +56,9 @@ public class BasicDetails extends BaseEntity {
 	@Size(max = 100, message = "Country cannot exceed 100 characters")
 	private String country;
 
-	@Column(name = "linkdin", length = 255)
+	@Column(name = "linkedin", length = 255)
 	@Size(max = 255, message = "LinkedIn URL cannot exceed 255 characters")
-	private String linkdin;
+	private String linkedin;
 
 	@Column(name = "github", length = 255)
 	@Size(max = 255, message = "GitHub URL cannot exceed 255 characters")
@@ -72,11 +72,11 @@ public class BasicDetails extends BaseEntity {
 	@Column(name="profile_image",columnDefinition ="LONGBLOB")
 	private byte[] ProfileImage;     //image are stored as binary data in byte[]
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "detailsEducation", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "detailsEducation", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
 	private List<Education> education = new ArrayList<>();
 
-	@OneToMany(mappedBy = "detailsExperiance", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Experiance> experiance = new ArrayList<>();
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "detailsExperiance", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Experiance> experience = new ArrayList<>();
 
 	@OneToMany(mappedBy = "detailsSkill", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Skill> skills = new ArrayList<>();
@@ -102,12 +102,12 @@ public class BasicDetails extends BaseEntity {
 
 	// helper method for experiance
 	public void addExperance(Experiance e) {
-		experiance.add(e);
+		experience.add(e);
 		e.setDetailsExperiance(this);
 	}
 
 	public void removeExperiance(Experiance e) {
-		experiance.remove(e);
+		experience.remove(e);
 		e.setDetailsExperiance(null);
 	}
 
@@ -188,12 +188,12 @@ public class BasicDetails extends BaseEntity {
 		this.country = country;
 	}
 
-	public String getLinkdin() {
-		return linkdin;
+	public String getLinkedin() {
+		return linkedin;
 	}
 
-	public void setLinkdin(String linkdin) {
-		this.linkdin = linkdin;
+	public void setLinkedin(String linkedin) {
+		this.linkedin = linkedin;
 	}
 
 	public String getGithub() {
@@ -212,12 +212,12 @@ public class BasicDetails extends BaseEntity {
 		this.education = education;
 	}
 
-	public List<Experiance> getExperiance() {
-		return experiance;
+	public List<Experiance> getExperience() {
+		return experience;
 	}
 
-	public void setExperiance(List<Experiance> experiance) {
-		this.experiance = experiance;
+	public void setExperience(List<Experiance> experience) {
+		this.experience = experience;
 	}
 
 	public List<Skill> getSkills() {
@@ -264,8 +264,8 @@ public class BasicDetails extends BaseEntity {
 	public String toString() {
 		return "BasicDetails [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phone="
 				+ phone + ", profession=" + profession + ", city=" + city + ", country=" + country + ", linkdin="
-				+ linkdin + ", github=" + github + ", message=" + message + ", ProfileImage="
-				+ Arrays.toString(ProfileImage) + ", education=" + education + ", experiance=" + experiance
+				+ linkedin + ", github=" + github + ", message=" + message + ", ProfileImage="
+				+ Arrays.toString(ProfileImage) + ", education=" + education + ", experiance=" + experience
 				+ ", skills=" + skills + ", projects=" + projects + ", user=" + user + "]";
 	}
 }

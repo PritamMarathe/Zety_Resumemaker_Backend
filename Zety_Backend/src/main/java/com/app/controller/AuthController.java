@@ -16,9 +16,9 @@ import jakarta.servlet.http.HttpServletResponse;
 public class AuthController {
 	
 	 @GetMapping("/auth/login/facebook")
-	    public String facebookLogin() {
+	    public void facebookLogin(HttpServletResponse response) throws IOException {
 	        // Redirect to the Facebook login URL
-	        return "redirect:/oauth2/authorization/facebook";
+		 response.sendRedirect("/oauth2/authorization/facebook");
 	    }
 	 
 	 //google login redirect url

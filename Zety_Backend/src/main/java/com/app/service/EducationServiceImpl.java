@@ -37,23 +37,26 @@ public class EducationServiceImpl implements EducationSerivce {
 
     @Override
     public ApiResponse addEducation(EducationDto dto) {
+
         logger.info("Adding education details for user ID: {}", dto.getUserId());
-        logger.info("DTO isGapTaken: {}", dto.isGapTaken());        
+        logger.info("DTO isGapTaken: {}", dto.isGapTaken());
+
         if (dto.getUserId() == null) {
             logger.error("User ID is null in EducationDto");
             throw new IllegalArgumentException("User ID cannot be null");
         }
-        
-        Education education = mapper.map(dto, Education.class);
-                BasicDetails basicDetails = besicDetailsDao.findById(dto.getUserId())
-                .orElseThrow(() -> new RersourseNotFoundException("User not found"));
-       
-                basicDetails.addEducation(education);
-                
-              //education.setDetailsEducation(basicDetails);
-                educationDao.save(education);
 
-               return new ApiResponse("Education details added successfully");
+        Education education = mapper.map(dto, Education.class);
+
+        BasicDetails basicDetails = besicDetailsDao.findById(dto.getUserId())
+                .orElseThrow(() -> new RersourseNotFoundException("User not found"));
+
+        basicDetails.addEducation(education);
+
+              //education.setDetailsEducation(basicDetails);
+        besicDetailsDao.save(basicDetails);
+
+        return new ApiResponse("Education details added successfully");
     }
 
     @Override
@@ -94,14 +97,14 @@ public class EducationServiceImpl implements EducationSerivce {
 	@Override
 	public ApiResponse deleteEducation(Long id) {
 		Education e = educationDao.findById(id).orElseThrow(()-> new RersourseNotFoundException("Education details cannot be found"));
-		
+
 		BasicDetails b = besicDetailsDao.findById(e.getDetailsEducation().getId()).orElseThrow(()-> new RersourseNotFoundException("User cannot be found"));
-		
+
 		educationDao.delete(e);
-		
+
 		b.removeEducation(e);
-		
-		
+
+
 		return new ApiResponse("education details deleted sucsessfully !");
 	}
 

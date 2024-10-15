@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.app.dto.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,20 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.app.custum_exception.RersourseNotFoundException;
 import com.app.dao.BesicDetailsDao;
 import com.app.dao.UserDao;
-import com.app.dto.ApiResponse;
-import com.app.dto.BesicDetailsDto;
-import com.app.dto.CombinedResponseDto;
-import com.app.dto.EducationDto;
-import com.app.dto.ExperianceDto;
-import com.app.dto.ResponseBesicDetailsDto;
-import com.app.dto.ResponseEducationDto;
-import com.app.dto.ResponseExperianceDto;
-import com.app.dto.ResponseProjectDto;
-import com.app.dto.ResponseSkillsDto;
-import com.app.dto.SkillDto;
+import com.app.dto.BasicDetailsDto;
 import com.app.entity.BasicDetails;
 import com.app.entity.User;
-import java.nio.*;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -44,9 +36,9 @@ public class BasicDetailsServiceImpl implements BasicDetailsService {
     private ModelMapper mapper;
 
     @Override
-    public ApiResponse addBasicDetails(BesicDetailsDto details) { // Renamed method
+    public ApiResponse addBasicDetails(BasicDetailsDto details) { // Renamed method
        
-    	User user =  userDao.findByEmail(details.getEmail()).orElseThrow(()-> new RersourseNotFoundException("user cannot be found"));
+    	User user =  userDao.findById(details.getUserId()).orElseThrow(()-> new RersourseNotFoundException("user cannot be found"));
     	
     	if(user == null) {
     		return new ApiResponse("User cannot be found with this email!");
@@ -61,14 +53,14 @@ public class BasicDetailsServiceImpl implements BasicDetailsService {
     }
 
     @Override
-    public BesicDetailsDto getBasicDetailsById(Long id) {
+    public BasicDetailsDto getBasicDetailsById(Long id) {
         BasicDetails b = dao.findById(id)
                 .orElseThrow(() -> new RersourseNotFoundException("Unable to find the user"));
-        return mapper.map(b, BesicDetailsDto.class);
+        return mapper.map(b, BasicDetailsDto.class);
     }
 
 	@Override
-	public ApiResponse updateBasicDetails(Long id, BesicDetailsDto details) {
+	public ApiResponse updateBasicDetails(Long id, BasicDetailsDto details) {
         BasicDetails existingDetails = dao.findById(id)
         		.orElseThrow(()-> new RersourseNotFoundException("unable to find the user"));
         mapper.map(details, existingDetails);
@@ -96,7 +88,7 @@ public class BasicDetailsServiceImpl implements BasicDetailsService {
 				.stream().map(e->mapper.map(e, ResponseEducationDto.class)).
 										collect(Collectors.toList());
 		
-		List<ResponseExperianceDto>experiance = basicDetails.getExperiance()
+		List<ResponseExperianceDto>experiance = basicDetails.getExperience()
 				.stream().map(e->mapper.map(e, ResponseExperianceDto.class)).
 										collect(Collectors.toList());
 		

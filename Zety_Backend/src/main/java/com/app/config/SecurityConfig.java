@@ -42,10 +42,15 @@ public class SecurityConfig {
         .csrf().disable()
             .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
-                    .requestMatchers("/", "/login**", "/oauth2/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()  // Allow public access
-                    .requestMatchers("/auth/login/**").permitAll()  // Specific URL for OAuth2 login
-                   // .requestMatchers("/user/**").hasAnyRole("ADMIN", "USER")  // Allow both ADMIN and USER roles
-                    //.requestMatchers("/admin/**").hasRole("ADMIN")  // Only admin can access admin routes
+                    .requestMatchers(
+                            "/",
+                            "/user/**",
+                            "/login/**",
+                            "/oauth2/**",
+                            "/auth/**",
+                            "/swagger-ui/**",
+                            "/v3/api-docs/**").permitAll()  // Allow public access
+                    .requestMatchers("/admin/**").hasRole("ADMIN")  // Only admin can access admin routes
                     .anyRequest().authenticated() // Other paths require authentication
                         .and()
             )
@@ -57,7 +62,17 @@ public class SecurityConfig {
                             .userService(customOAuth2UserService)
                     )
                     .successHandler((request, response, authentication) -> {
-                        response.sendRedirect("/swagger-ui/index.html");  // after successful login redirecting to swagger ui url
+                         response.setContentType("application/json");
+                         response.setCharacterEncoding("UTF-8");
+
+                        OAuth2User user = (OAuth2User) authentication.getPrincipal();
+                        if (user == null) {
+                            throw new IllegalStateException("User information could not be retrieved.");
+                        }
+                        String email = user.getAttribute("email");
+                        response.sendRedirect("http://localhost:5173/login/success?email=" + email);
+
+
                     })
             );
 
@@ -77,11 +92,7 @@ public class SecurityConfig {
         return source;
     }
 
-    // Explicitly define the Spring CorsFilter
-//    @Bean
-//    public CorsFilter corsFilter() {
-//        return new CorsFilter(corsConfigurationSource());
-//    }
+
     
 
 

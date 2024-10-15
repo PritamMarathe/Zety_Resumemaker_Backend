@@ -41,7 +41,7 @@ public class ExperianceServiceImpl implements ExperianceService {
         BasicDetails b = besicDetailsdao.findById(userId)
                 .orElseThrow(() -> new RersourseNotFoundException("User Not Found"));
 
-        return b.getExperiance().stream()
+        return b.getExperience().stream()
                 .map(exp -> {
                     ExperianceDto dto = mapper.map(exp, ExperianceDto.class);
                     dto.setUserId(b.getId()); // Set userId from BesicDetails entity

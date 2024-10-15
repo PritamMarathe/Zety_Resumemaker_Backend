@@ -23,7 +23,7 @@ public class Education extends BaseEntity{
 	@Column(name = "school_name")
 	private String SchoolName;
 
-	@Column(name = "schooll_ocation")
+	@Column(name = "school_location")
 	private String SchoolLocation;
 	
 	@Column(name = "field_of_study")

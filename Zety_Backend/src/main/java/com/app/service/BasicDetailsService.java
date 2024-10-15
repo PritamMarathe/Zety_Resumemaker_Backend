@@ -2,19 +2,18 @@ package com.app.service;
 
 import java.io.IOException;
 
+import com.app.dto.BasicDetailsDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.ApiResponse;
-import com.app.dto.BesicDetailsDto;
 import com.app.dto.CombinedResponseDto;
-import com.app.entity.BasicDetails;
 
 public interface BasicDetailsService {
-	BesicDetailsDto getBasicDetailsById(Long id);
+	BasicDetailsDto getBasicDetailsById(Long id);
 
-	ApiResponse addBasicDetails(BesicDetailsDto details);
+	ApiResponse addBasicDetails(BasicDetailsDto details);
 
-	ApiResponse updateBasicDetails(Long id, BesicDetailsDto details);
+	ApiResponse updateBasicDetails(Long id, BasicDetailsDto details);
 
 	ApiResponse deleteBesicdetails(Long userId);
 	

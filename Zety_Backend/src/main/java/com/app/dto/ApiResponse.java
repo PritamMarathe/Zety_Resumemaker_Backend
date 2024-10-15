@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
+
 @Getter
 @Setter
 public class ApiResponse {
@@ -15,6 +15,10 @@ public class ApiResponse {
 	private LocalDateTime timeStamp;
 	
 	private String message;
+
+	private String email;
+
+	private String role;
 	
 	private boolean success;
 	
@@ -57,6 +61,22 @@ public class ApiResponse {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
-	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+
 }

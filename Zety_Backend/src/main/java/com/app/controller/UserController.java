@@ -16,10 +16,9 @@ import com.app.dto.ApiResponse;
 import com.app.dto.PasswordResetDto;
 import com.app.dto.SignupDto;
 import com.app.service.UserService;
-
+@RequestMapping("user")
 @CrossOrigin
 @RestController
-@RequestMapping("user")
 public class UserController {
 
 	@Autowired
@@ -59,5 +58,5 @@ public class UserController {
 	    public ResponseEntity<Long> findUserIdByEmail(@RequestParam String email) {
 	        Long userId = service.findUserIdByEmail(email);
 	        return ResponseEntity.ok(userId);
-	    }	
+	    }
 }
